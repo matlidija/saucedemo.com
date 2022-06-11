@@ -20,6 +20,13 @@ public class TestInventory extends BaseTest {
     WebElement addToCardButton;
     @FindBy(id = "remove-sauce-labs-backpack")
     WebElement removeButton;
+    @FindBy(css = ".shopping_cart_link")
+    WebElement cardButton;
+
+    public void clickCardButton(){
+        wdwait.until(ExpectedConditions.elementToBeClickable(cardButton));
+        cardButton.click();
+    }
 
     public void clickRemoveButton(){
         wdwait.until(ExpectedConditions.elementToBeClickable(removeButton));

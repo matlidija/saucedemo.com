@@ -4,21 +4,24 @@ import base.BaseTest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import page.TestHome;
-import page.TestInventory;
+import page.*;
 
 public class TestPage extends BaseTest {
     TestHome testHome;
     TestInventory testInventory;
-
-
+    TestCard testCard;
+    TestCheckoutOne testCheckoutOne;
+    TestCheckoutTwo testCheckoutTwo;
+    TestCheckoutComplete testCheckoutComplete;
 
     @Before
     public void setUpTest(){
         testHome = new TestHome();
         testInventory = new TestInventory();
-
-
+        testCard = new TestCard();
+        testCheckoutOne = new TestCheckoutOne();
+        testCheckoutTwo = new TestCheckoutTwo();
+        testCheckoutComplete = new TestCheckoutComplete();
     }
     @Test
     public void loginPage(){
@@ -52,6 +55,25 @@ public class TestPage extends BaseTest {
         testInventory.clickRemoveButton();
         Assert.assertTrue(testInventory.addToCardButtonIsDisplay());
         Assert.assertEquals("ADD TO CART", testInventory.addToCardButtonIsText());
+    }
+    @Test
+    public void shopingUser(){
+        testHome.typeUserNameField("standard_user");
+        testHome.typePasswordField("secret_sauce");
+        testHome.clickLoginButton();
+        testInventory.clickAddToCardButton();
+        testInventory.clickCardButton();
+        testCard.clickCheckoutButton();
+        testCheckoutOne.inputFirstNameField("Lidija");
+        testCheckoutOne.inputLastNameField("Matic");
+        testCheckoutOne.inputPostalCodeField("26232");
+        testCheckoutOne.clickContinueButton();
+        js.executeScript("window.scrollBy(0,200)");
+        testCheckoutTwo.clickFinishButton();
+        js.executeScript("window.scrollBy(0,-200)");
+        Assert.assertTrue(testCheckoutComplete.completeHeaderTextIsDisplay());
+        Assert.assertEquals("THANK YOU FOR YOUR ORDER", testCheckoutComplete.completeHeaderTextIsGet());
+
     }
 
 }
