@@ -39,5 +39,19 @@ public class TestPage extends BaseTest {
         Assert.assertEquals("Epic sadface: Sorry, this user has been locked out.", testHome.lockedUserIsGetText());
         testHome.clickExitLockedMess();
     }
+    @Test
+    public void problemUser(){
+        testHome.typeUserNameField("problem_user");
+        testHome.typePasswordField("secret_sauce");
+        testHome.clickLoginButton();
+        Assert.assertTrue(testInventory.addToCardButtonIsDisplay());
+        Assert.assertEquals("ADD TO CART", testInventory.addToCardButtonIsText());
+        testInventory.clickAddToCardButton();
+        Assert.assertTrue(testInventory.removeButtonIsDisplay());
+        Assert.assertEquals("REMOVE", testInventory.removeButtonIsText());
+        testInventory.clickRemoveButton();
+        Assert.assertTrue(testInventory.addToCardButtonIsDisplay());
+        Assert.assertEquals("ADD TO CART", testInventory.addToCardButtonIsText());
+    }
 
 }
